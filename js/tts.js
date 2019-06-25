@@ -8,10 +8,14 @@ function make_tts_engine()
         synth = window.speechSynthesis;
     }
 
-    function speak_move(san) {
-        if (!synth || synth.speaking) { return; }
+    function say_move(san) {
         var move = expand_move(san);
-        const utterance = new SpeechSynthesisUtterance(move);
+        say(move);
+    }
+
+    function say(text) {
+        if (!synth || synth.speaking) { return; }
+        const utterance = new SpeechSynthesisUtterance(text);
         utterance.addEventListener('error', error => console.error(error));
         synth.speak(utterance);
     }
@@ -24,8 +28,9 @@ function make_tts_engine()
              "B":        " bishop ",
              "Q":        " queen ",
              "K":        " king ",
-             "\\+":      " check ",
              "x":        " takes ",
+             "\\+":      " check ",
+             "#":        " checkmate ",
              "O-O-O":    " castles queenside ",
              "O-O":      " castles kingside ",
              "e\\.p\\.": " en passant ",
@@ -40,6 +45,6 @@ function make_tts_engine()
     }        
 
     return {
-        speak_move: speak_move
+        say_move: say_move
     };
 }

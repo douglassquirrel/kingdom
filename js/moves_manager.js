@@ -101,7 +101,7 @@ function make_moves_el(parent, height_parent)
             time_el: G.cde("div", {c: "moveCell moveTime move" + options.color + " moveRow" + even_odd + clickable_cell, t: typeof options.time === "number" ? format_move_time(options.time) : "\u00a0"}, {click: options.onclick}),
         };
 
-        if (tts_engine) { tts_engine.speak_move(options.san); }
+        if (tts_engine) { tts_engine.say_move(options.san); }
         
         if (typeof options.pm !== "undefined") {
             plys[options.ply].pm = options.pm;
