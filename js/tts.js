@@ -16,6 +16,7 @@ function make_tts_engine()
     function say(text) {
         if (!synth || synth.speaking) { return; }
         const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";
         utterance.addEventListener('error', error => console.error(error));
         synth.speak(utterance);
     }
