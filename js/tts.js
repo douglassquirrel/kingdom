@@ -30,15 +30,18 @@ function make_tts_engine()
              "Q":        " queen ",
              "K":        " king ",
              "x":        " takes ",
-             "\\+":      " check ",
+             "+":        " check ",
              "#":        " checkmate ",
              "O-O-O":    " castles queenside ",
              "O-O":      " castles kingside ",
-             "e\\.p\\.": " en passant ",
+             "e.p.":     " ahn pahssehhnt ",
              "=":        " promoting to ",
             };
 
-        var re = new RegExp(Object.keys(expansions).join("|"),"g");
+        var reString = Object.keys(expansions).join("|");
+        reString = reString.replace(/\+/g, "\\+");
+        reString = reString.replace(/\./g, "\\.");
+        var re = new RegExp(reString,"g");
         move = move.replace(re, function(matched) {
             return expansions[matched];
         });
