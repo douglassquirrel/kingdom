@@ -10,10 +10,27 @@ function make_tts_engine()
 
     function speak_move(san) {
         if (!synth || synth.speaking) { return; }
-        const utterance = new SpeechSynthesisUtterance(san);
+        var move = expand_move(san);
+        const utterance = new SpeechSynthesisUtterance(move);
         utterance.addEventListener('error', error => console.error(error));
         synth.speak(utterance);
     }
+
+    function expand_move(san) {
+        var move = san;
+        var expansions = 
+            {R:"rook ",
+             N:"knight ",
+             B:"bishop ",
+             Q:"queen ",
+             K:"king "};
+
+        var re = new RegExp(Object.keys(expansions).join("|"),"g");
+        move = move.replace(re, function(matched) {
+            return expansions[matched];
+        });
+        return move;
+    }        
 
     return {
         speak_move: speak_move
