@@ -8,7 +8,8 @@ function make_moves_el(parent, height_parent)
         plys,
         track_row,
         offset_height,
-        selected_id;
+        selected_id,
+        tts_engine;
     
     function clean_san(san)
     {
@@ -99,6 +100,8 @@ function make_moves_el(parent, height_parent)
             eval_el: G.cde("div", {c: "moveCell moveEval move" + options.color + " moveRow" + even_odd + clickable_cell, t: "\u00a0"}, {click: options.onclick}), /// \u00a0 is &nbsp;
             time_el: G.cde("div", {c: "moveCell moveTime move" + options.color + " moveRow" + even_odd + clickable_cell, t: typeof options.time === "number" ? format_move_time(options.time) : "\u00a0"}, {click: options.onclick}),
         };
+
+        if (tts_engine) { tts_engine.speak_move(options.san); }
         
         if (typeof options.pm !== "undefined") {
             plys[options.ply].pm = options.pm;
@@ -322,7 +325,8 @@ function make_moves_el(parent, height_parent)
     
     parent.appendChild(container_el);
     container_el.appendChild(moves_el);
-    
+    tts_engine = make_tts_engine();
+
     reset_moves();
     
     return {
