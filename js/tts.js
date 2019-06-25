@@ -19,11 +19,18 @@ function make_tts_engine()
     function expand_move(san) {
         var move = san;
         var expansions = 
-            {R:"rook ",
-             N:"knight ",
-             B:"bishop ",
-             Q:"queen ",
-             K:"king "};
+            {"R":        " rook ",
+             "N":        " knight ",
+             "B":        " bishop ",
+             "Q":        " queen ",
+             "K":        " king ",
+             "\\+":      " check ",
+             "x":        " takes ",
+             "O-O-O":    " castles queenside ",
+             "O-O":      " castles kingside ",
+             "e\\.p\\.": " en passant ",
+             "=":        " promoting to ",
+            };
 
         var re = new RegExp(Object.keys(expansions).join("|"),"g");
         move = move.replace(re, function(matched) {
