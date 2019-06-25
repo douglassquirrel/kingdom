@@ -14,7 +14,12 @@ function make_tts_engine()
     }
 
     function say(text) {
-        if (!synth || synth.speaking) { return; }
+        if (!synth) { return; }
+        if (synth.speaking) {
+            window.setTimeout(say, 100, text);
+            return;
+        }
+
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "en-US";
         utterance.addEventListener('error', error => console.error(error));
