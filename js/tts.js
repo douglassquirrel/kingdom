@@ -4,18 +4,19 @@ function make_tts_engine()
    
     var synth;
     var expansions = 
-        {"R":         " rook ",
-         "N":         " knight ",
-         "B":         " bishop ",
-         "Q":         " queen ",
-         "K":         " king ",
-         "x":         " takes ",
-         "+":         " check ",
-         "#":         " checkmate ",
-         "O - O - O": " castles queenside ",
-         "O - O":     " castles kingside ",
-         "e . p .":   " ahn pahssehhnt ",
-         "=":         " promoting to ",
+        {"R":         "rook",
+         "N":         "knight",
+         "B":         "bishop",
+         "Q":         "queen",
+         "K":         "king",
+         "a x":       "a, takes", // Odd case, axb4 -> ah takes bee 4
+         "x":         "takes",
+         "+":         "check",
+         "#":         "checkmate",
+         "O - O - O": "castles queenside",
+         "O - O":     "castles kingside",
+         "e . p .":   "ahn pahssehhnt",
+         "=":         "promoting to",
         };
 
 
