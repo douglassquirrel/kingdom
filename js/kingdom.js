@@ -15,6 +15,9 @@
     var new_game_el;
     var setup_game_el;
     var game_info_text;
+    var speak_moves_el;
+    var listen_for_moves_el;
+    var type_moves_el;
     var starting_new_game;
     var retry_move_timer;
     var clock_manager;
@@ -1711,11 +1714,25 @@
             G.cde("option", {value: "knightSight", t: "Knight Sight"}),
             G.cde("option", {value: "knightJump", t: "Knight Jump"}),
         ]);
-        
+
+        speak_moves_el = G.cde("input", {type: "checkbox", checked: ""}, {all_on_changes: function () {}});
+        listen_for_moves_el = G.cde("input", {type: "checkbox", checked: ""}, {all_on_changes: function () {}});
+        type_moves_el = G.cde("input", {type: "text", value: ""}, {all_on_changes: function () {}});
+        var speech_options_container = G.cde("div");
+        speech_options_container.appendChild(G.cde("", [
+            "Speak moves: ",
+            speak_moves_el,
+            "Listen for moves: ",
+            listen_for_moves_el,
+            "Type moves: ",
+            type_moves_el,
+        ]));
+
         center_el.appendChild(G.cde("documentFragment", [
             new_game_el,
             setup_game_el,
             gameTypeSel,
+            speech_options_container,
             game_info_text,
         ]));
         
