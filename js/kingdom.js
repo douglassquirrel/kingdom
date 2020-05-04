@@ -1715,8 +1715,8 @@
             G.cde("option", {value: "knightJump", t: "Knight Jump"}),
         ]);
 
-        speak_moves_el = G.cde("input", {type: "checkbox", checked: ""}, {all_on_changes: function () {}});
-        listen_for_moves_el = G.cde("input", {type: "checkbox", checked: ""}, {all_on_changes: function () {}});
+        speak_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {}});
+        listen_for_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {}});
         type_moves_el = G.cde("input", {type: "text", value: ""}, {all_on_changes: function () {}});
         var speech_options_container = G.cde("div");
         speech_options_container.appendChild(G.cde("", [
