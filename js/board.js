@@ -958,8 +958,10 @@ var BOARD = function board_init(el, options)
     }
     
     function make_move_uci(uci) {
-	var md = get_move_data_from_uci(uci);
-	make_move(md.piece, md.square, uci, md.promoting);
+        if (!is_legal_move(uci)) {return;}
+
+        var md = get_move_data_from_uci(uci);
+        make_move(md.piece, md.square, uci, md.promoting);
     }
 
     function make_move(piece, square, uci, promoting)
