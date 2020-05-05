@@ -957,6 +957,11 @@ var BOARD = function board_init(el, options)
         }
     }
     
+    function make_move_uci(uci) {
+	var md = get_move_data_from_uci(uci);
+	make_move(md.piece, md.square, uci, md.promoting);
+    }
+
     function make_move(piece, square, uci, promoting)
     {
         var oldRank = piece.rank;
@@ -1203,12 +1208,12 @@ var BOARD = function board_init(el, options)
         delete piece.captured;
         piece.el.classList.remove("captured");
     }
-    
-    function move_piece_uci(uci)
-    {
+
+    function get_move_data_from_uci(uci) {
         var positions = split_uci(uci),
             piece,
-            ending_square;
+            ending_square,
+            promoting;
         
         ending_square = {
             el: squares[positions.ending.rank][positions.ending.file],
@@ -1217,10 +1222,19 @@ var BOARD = function board_init(el, options)
         };
         
         piece = get_piece_from_rank_file(positions.starting.rank, positions.starting.file);
+
+        promoting = positions.promote_to;
+
+        return {piece: piece, square: ending_square, promoting: promoting};  
+    }
+
+    function move_piece_uci(uci)
+    {
+        var md = get_move_data_from_uci(uci);
         
-        if (piece) {
-            move_piece(piece, ending_square, uci);
-            promote_piece(piece, uci);
+        if (md.piece) {
+            move_piece(md.piece, md.square, uci);
+            promote_piece(md.piece, uci);
         }
     }
     
@@ -1885,6 +1899,7 @@ var BOARD = function board_init(el, options)
         play: play,
         enable_setup: enable_setup,
         move: move,
+        make_move_uci: make_move_uci,
         players: {
             w: {
                 color: "w",

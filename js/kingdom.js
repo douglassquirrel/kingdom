@@ -18,6 +18,7 @@
     var speak_moves_el;
     var listen_for_moves_el;
     var type_moves_el;
+    var make_typed_move_el;
     var starting_new_game;
     var retry_move_timer;
     var clock_manager;
@@ -1718,7 +1719,8 @@
 
         speak_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {tts_engine.toggle(this.checked);}});
         listen_for_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {}});
-        type_moves_el = G.cde("input", {type: "text", value: ""}, {all_on_changes: function () {}});
+        type_moves_el = G.cde("input", {type: "text", value: ""}, {all_on_changes: function() {}});
+        make_typed_move_el = G.cde("button", {t: "Go"}, {click: function () {board.make_move_uci(type_moves_el.value);}});
         var speech_options_container = G.cde("div");
         speech_options_container.appendChild(G.cde("", [
             "Speak moves: ",
@@ -1727,6 +1729,7 @@
             listen_for_moves_el,
             "Type moves: ",
             type_moves_el,
+            make_typed_move_el,
         ]));
 
         center_el.appendChild(G.cde("documentFragment", [
