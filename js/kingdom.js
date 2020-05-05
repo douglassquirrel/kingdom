@@ -1721,6 +1721,11 @@
         listen_for_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {}});
         type_moves_el = G.cde("input", {type: "text", value: ""}, {all_on_changes: function() {}});
         make_typed_move_el = G.cde("button", {t: "Go"}, {click: function () {board.make_move_uci(type_moves_el.value);}});
+        type_moves_el.addEventListener("keyup", event => {
+            if (event.key !== "Enter") return;
+            make_typed_move_el.click();
+            event.preventDefault();
+        });
         var speech_options_container = G.cde("div");
         speech_options_container.appendChild(G.cde("", [
             "Speak moves: ",
