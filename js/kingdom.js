@@ -38,6 +38,7 @@
     var lastGameType;
     var answers;
     var currentMovePath;
+    var tts_engine = make_tts_engine();
     
     function error(str)
     {
@@ -1715,7 +1716,7 @@
             G.cde("option", {value: "knightJump", t: "Knight Jump"}),
         ]);
 
-        speak_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {}});
+        speak_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {tts_engine.toggle(this.checked);}});
         listen_for_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {}});
         type_moves_el = G.cde("input", {type: "text", value: ""}, {all_on_changes: function () {}});
         var speech_options_container = G.cde("div");
@@ -2198,7 +2199,7 @@
         
         create_center();
         
-        moves_manager = make_moves_el(layout.rows[1].cells[2], layout.rows[1].cells[2]);
+        moves_manager = make_moves_el(layout.rows[1].cells[2], layout.rows[1].cells[2], tts_engine);
         
         onresize();
         

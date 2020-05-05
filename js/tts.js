@@ -3,6 +3,7 @@ function make_tts_engine()
     "use strict";
    
     var synth;
+    var enabled = true;
     var expansions = 
         {"R":         "rook",
          "N":         "knight",
@@ -19,10 +20,11 @@ function make_tts_engine()
          "=":         "promoting to",
         };
 
-
     if ('speechSynthesis' in window) {
         synth = window.speechSynthesis;
     }
+
+    function toggle(state) { enabled = state; }
 
     function say(text) {
         if (!synth) { return; }
@@ -38,6 +40,8 @@ function make_tts_engine()
     }
 
     function say_move(san) {
+	if (!enabled) { return; }
+
         var move = san;
 
         move = add_spaces(move);
@@ -75,6 +79,7 @@ function make_tts_engine()
     }
 
     return {
-        say_move: say_move
+        say_move: say_move,
+        toggle: toggle,
     };
 }

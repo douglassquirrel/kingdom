@@ -1,4 +1,4 @@
-function make_moves_el(parent, height_parent)
+function make_moves_el(parent, height_parent, ttse)
 {
     "use strict";
     
@@ -9,7 +9,7 @@ function make_moves_el(parent, height_parent)
         track_row,
         offset_height,
         selected_id,
-        tts_engine;
+        tts_engine = ttse;
     
     function clean_san(san)
     {
@@ -325,7 +325,6 @@ function make_moves_el(parent, height_parent)
     
     parent.appendChild(container_el);
     container_el.appendChild(moves_el);
-    tts_engine = make_tts_engine();
 
     reset_moves();
     
