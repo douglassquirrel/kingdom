@@ -801,7 +801,7 @@ var BOARD = function board_init(el, options)
             }
         }
         
-        if (promoting) {
+        if (promoting === true) {
             promotion_prompt(piece, function onres(answer)
             {
                 ///NOTE: The uci move already includes a promotion to queen to make it a valid move. We need to remove this and replace it with the desired promotion.
