@@ -40,6 +40,7 @@
     var answers;
     var currentMovePath;
     var tts_engine = make_tts_engine();
+    var stt_engine = make_stt_engine();
     
     function error(str)
     {
@@ -1718,7 +1719,7 @@
         ]);
 
         speak_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {tts_engine.toggle(this.checked);}});
-        listen_for_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {}});
+        listen_for_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {stt_engine.toggle(this.checked);}});
         type_moves_el = G.cde("input", {type: "text", value: ""}, {all_on_changes: function() {}});
         make_typed_move_el = G.cde("button", {t: "Go"}, {click: function () {board.make_move_uci(type_moves_el.value);}});
         type_moves_el.addEventListener("keyup", event => {
