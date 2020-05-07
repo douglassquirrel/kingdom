@@ -40,7 +40,7 @@
     var answers;
     var currentMovePath;
     var tts_engine = make_tts_engine();
-    var stt_engine = make_stt_engine();
+    var stt_engine = make_stt_engine(board.make_move_uci, tts_engine.say);
     
     function error(str)
     {

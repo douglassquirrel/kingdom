@@ -958,6 +958,8 @@ var BOARD = function board_init(el, options)
     }
     
     function make_move_uci(uci) {
+        console.log('Received uci move: ' + uci);
+
         if (!is_legal_move(uci)) {return;}
 
         var md = get_move_data_from_uci(uci);

@@ -79,6 +79,7 @@ function make_tts_engine()
     }
 
     return {
+        say: say,
         say_move: say_move,
         toggle: toggle,
     };

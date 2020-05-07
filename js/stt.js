@@ -1,4 +1,4 @@
-function make_stt_engine()
+function make_stt_engine(onsuccess, onfailure)
 {
     "use strict";
 
@@ -8,18 +8,24 @@ function make_stt_engine()
     function onresult(event) {
         var len = event.results.length;
         var uci = event.results[len-1][0].transcript;
+        uci = uci.replace(/\s+/g, '').toLowerCase();
+        console.log('Heard this: ' + uci);
         
-        alert(uci);
-
-        console.log('Confidence: ' + event.results[len-1][0].confidence);
+        if (/^[a-h][1-8][a-h][1-8][nbrq]?$/.test(uci)) {
+            onsuccess(uci);
+        } else {
+            onfailure('You said ' + uci + ' but that is not a valid move.');
+        }
     }
 
     function onnomatch(event) {
-        console.log("I didn't understand that.");
+        console.log("No match.");
+        onfailure("I didn't understand that.");
     }
 
     function onerror(event) {
         console.log('Error occurred in recognition: ' + event.error);
+        onfailure("Oops! An error occurred. Try again");
     }
 
     function onend() {
