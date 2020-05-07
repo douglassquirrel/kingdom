@@ -17,6 +17,7 @@
     var game_info_text;
     var speak_moves_el;
     var listen_for_moves_el;
+    var blindfold_el;
     var type_moves_el;
     var make_typed_move_el;
     var starting_new_game;
@@ -1707,6 +1708,15 @@
         gameType = this.value;
     }
     
+    function toggle_board_visibility(state) 
+    {
+        if (state) {
+            board.el.style.visibility = "visible";
+        } else {
+            board.el.style.visibility = "hidden";
+        }
+    }
+
     function create_center()
     {
         new_game_el = G.cde("button", {t: "New Game"}, {click: function () {start_new()}});
@@ -1720,6 +1730,7 @@
 
         speak_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {tts_engine.toggle(this.checked);}});
         listen_for_moves_el = G.cde("input", {type: "checkbox", checked: "checked"}, {all_on_changes: function () {stt_engine.toggle(this.checked);}});
+        blindfold_el = G.cde("input", {type: "checkbox", checked: false}, {all_on_changes: function () {toggle_board_visibility(!this.checked);}});
         type_moves_el = G.cde("input", {type: "text", value: ""}, {all_on_changes: function() {}});
         make_typed_move_el = G.cde("button", {t: "Go"}, {click: function () {board.make_move_uci(type_moves_el.value);}});
         type_moves_el.addEventListener("keyup", event => {
@@ -1733,6 +1744,8 @@
             speak_moves_el,
             "Listen for moves: ",
             listen_for_moves_el,
+            "Blindfold: ",
+            blindfold_el,
             "Type moves: ",
             type_moves_el,
             make_typed_move_el,
