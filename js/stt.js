@@ -7,15 +7,15 @@ function make_stt_engine()
 
     function onresult(event) {
         var len = event.results.length;
-        var color = event.results[len-1][0].transcript;
+        var uci = event.results[len-1][0].transcript;
         
-        alert(color);
+        alert(uci);
 
         console.log('Confidence: ' + event.results[len-1][0].confidence);
     }
 
     function onnomatch(event) {
-        console.log("I didn't recognise that color.");
+        console.log("I didn't understand that.");
     }
 
     function onerror(event) {
@@ -26,21 +26,17 @@ function make_stt_engine()
         if (!enabled) { return; }
 
         recognition.start();
-        console.log('Restarted, ready to receive a color command.');
+        console.log('Restarted, ready to receive moves.');
     };
 
     function make_recognition() {
         var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
         var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 
-        var colors = [ 'aqua' , 'azure' , 'beige', 'bisque', 'black', 'blue', 'brown', 
-                       'chocolate', 'coral', 'crimson', 'cyan', 'fuchsia', 'ghostwhite', 
-                       'gold', 'goldenrod', 'gray', 'green', 'indigo', 'ivory', 'khaki', 
-                       'lavender', 'lime', 'linen', 'magenta', 'maroon', 'moccasin', 'navy', 
-                       'olive', 'orange', 'orchid', 'peru', 'pink', 'plum', 'purple', 'red', 
-                       'salmon', 'sienna', 'silver', 'snow', 'tan', 'teal', 'thistle', 'tomato', 
-                       'turquoise', 'violet', 'white', 'yellow'];
-        var grammar = '#JSGF V1.0; grammar colors; public <color> = ' + colors.join(' | ') + ' ;';
+        var coords = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+                       '1', '2', '3', '4', '5', '6', '7', '8',
+                       'n', 'r', 'q'];
+        var grammar = '#JSGF V1.0; grammar coords; public <coords> = ' + coords.join(' | ') + ' ;';
 
         var rec = new SpeechRecognition();
         var speechRecognitionList = new SpeechGrammarList();
@@ -63,10 +59,10 @@ function make_stt_engine()
         enabled = state;
         if (enabled) {
             recognition.start();
-            console.log('Ready to receive a color command.');
+            console.log('Ready to receive moves.');
         } else {
             recognition.stop();
-            console.log('Recognition stopped.');
+            console.log('Listening stopped.');
         }
     }
 
